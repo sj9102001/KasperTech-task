@@ -24,8 +24,8 @@ class LoginPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            LogoWidget(),
-            LoginWelcomeTextWidget(),
+            const LogoWidget(),
+            const LoginWelcomeTextWidget(),
             LoginForm(),
           ],
         ),

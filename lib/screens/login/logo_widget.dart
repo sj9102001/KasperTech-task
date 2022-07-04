@@ -9,7 +9,7 @@ class LogoWidget extends StatelessWidget {
     final deviceSize = MediaQuery.of(context).size;
     return Container(
       height: deviceSize.height * 0.3,
-      margin: EdgeInsets.only(bottom: 10),
+      margin: const EdgeInsets.only(bottom: 10),
       alignment: Alignment.topCenter,
       width: double.infinity,
       color: Colors.white,

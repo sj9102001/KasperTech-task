@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import 'package:kaspertechtask/common/dialogs.dart';
 
+// ignore: use_key_in_widget_constructors
 class SignupPage extends StatefulWidget {
   static const routeName = '/signup';
 
@@ -41,8 +42,7 @@ class _SignupPageState extends State<SignupPage> {
         }
       } catch (error) {
         //This dialog spins up when sign up is failed and shows the message
-        final value =
-            await Dialogs.customShowDialog(ctx, 'Oh wait', error.toString());
+        await Dialogs.customShowDialog(ctx, 'Oh wait', error.toString());
       }
     }
   }
@@ -147,6 +147,7 @@ class _SignupPageState extends State<SignupPage> {
                             if (value.toString().isEmpty) {
                               return 'Please enter password';
                             }
+                            return null;
                           }),
                     ),
                     Padding(

@@ -4,7 +4,6 @@ import 'package:kaspertechtask/screens/task/task_page.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:kaspertechtask/screens/login/login_page.dart';
 import './screens/signup/signup_page.dart';
 import 'package:kaspertechtask/splash.dart';
 
@@ -30,21 +29,22 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         routes: {
-          LoginPage.routeName: (ctx) => LoginPage(),
+          LoginPage.routeName: (ctx) => const LoginPage(),
           SignupPage.routeName: (ctx) => SignupPage(),
           TaskPage.routeName: (ctx) => TaskPage()
         },
-        home: Splash(),
+        home: const Splash(),
       ),
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
-  bool isLoggedIn = false;
+  const MyHomePage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Consumer<Auth>(
-        builder: (ctx, auth, _) => auth.isAuth ? TaskPage() : LoginPage());
+        builder: (ctx, auth, _) =>
+            auth.isAuth ? TaskPage() : const LoginPage());
   }
 }

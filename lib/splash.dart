@@ -11,15 +11,15 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _navigateToLogin();
   }
 
   _navigateToLogin() async {
-    await Future.delayed(Duration(milliseconds: 1500), () {});
+    await Future.delayed(const Duration(milliseconds: 1500), () {});
+    // ignore: use_build_context_synchronously
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => MyHomePage()));
+        context, MaterialPageRoute(builder: (context) => const MyHomePage()));
   }
 
   @override
@@ -27,7 +27,7 @@ class _SplashState extends State<Splash> {
     return Scaffold(
       body: Stack(
         children: [
-          Container(
+          SizedBox(
             width: double.infinity,
             height: double.infinity,
             child: Image.asset(

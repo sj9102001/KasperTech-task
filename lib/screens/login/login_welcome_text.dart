@@ -11,11 +11,11 @@ class LoginWelcomeTextWidget extends StatelessWidget {
 
     return Container(
       height: deviceSize.height * 0.11,
-      margin: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
+      margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 15),
       alignment: Alignment.topLeft,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Container(
-          margin: EdgeInsets.only(bottom: 5),
+          margin: const EdgeInsets.only(bottom: 5),
           child: const Text(
             'Let\'s Sign you in.',
             style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700),

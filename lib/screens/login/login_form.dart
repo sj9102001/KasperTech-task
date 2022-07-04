@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 import '../signup/signup_page.dart';
 
 class LoginForm extends StatefulWidget {
+  const LoginForm({Key? key}) : super(key: key);
+
   @override
   State<LoginForm> createState() => _LoginFormState();
 }
@@ -27,7 +29,7 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     final authProvider = Provider.of<Auth>(context);
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -50,16 +52,13 @@ class _LoginFormState extends State<LoginForm> {
             ),
             Container(
               alignment: Alignment.centerRight,
-              margin: EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+              margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
               child: GestureDetector(
-                  child: Text('Recover Password'),
-                  onTap: () {
-                    print('Recover Password tapped');
-                  }),
+                  child: const Text('Recover Password'), onTap: () {}),
             ),
             Container(
               alignment: Alignment.center,
-              margin: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+              margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -108,10 +107,10 @@ InputDecoration _buildInputDecoration(text) {
   return InputDecoration(
       hintText: text,
       labelText: text,
-      labelStyle: TextStyle(color: Colors.black54),
-      focusedBorder: OutlineInputBorder(
+      labelStyle: const TextStyle(color: Colors.black54),
+      focusedBorder: const OutlineInputBorder(
         borderSide: BorderSide(color: Colors.black54, width: 2),
       ),
-      contentPadding: EdgeInsets.all(20),
+      contentPadding: const EdgeInsets.all(20),
       border: InputBorder.none);
 }
