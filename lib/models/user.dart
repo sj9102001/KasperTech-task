@@ -1,5 +1,4 @@
 class User {
-  final String? token;
   final String? firstName;
   final String? lastName;
   final String? email;
@@ -7,7 +6,6 @@ class User {
   final String? phoneNumber;
 
   User({
-    required this.token,
     required this.email,
     required this.firstName,
     required this.lastName,

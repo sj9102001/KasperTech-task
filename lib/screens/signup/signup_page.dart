@@ -24,34 +24,32 @@ class _SignupPageState extends State<SignupPage> {
 
   void _submitSignupForm(signupCallback, BuildContext ctx) async {
     bool isValid = _formKey.currentState!.validate();
-    print(isValid);
     if (isValid) {
       _formKey.currentState!.save();
-    }
+      //Sign up call
+      try {
+        await signupCallback(
+            email, password, confirmPassword, name, phoneNumber, userName);
 
-    //Sign up call
-    try {
-      await signupCallback(
-          email, password, confirmPassword, name, phoneNumber, userName);
-
-      //This dialog spins up when sign up is succesfull and then procedes to login page
-      // ignore: use_build_context_synchronously
-      final value = await Dialogs.customShowDialog(
-          ctx, 'Welcome!', 'Sign up succesful, Procced to sign in?');
-      if (value == DialogAction.yes) {
+        //This dialog spins up when sign up is succesfull and then procedes to login page
         // ignore: use_build_context_synchronously
-        Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
+        final value = await Dialogs.customShowDialog(
+            ctx, 'Welcome!', 'Sign up succesful, Procced to sign in?');
+        if (value == DialogAction.yes) {
+          // ignore: use_build_context_synchronously
+          Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
+        }
+      } catch (error) {
+        //This dialog spins up when sign up is failed and shows the message
+        final value =
+            await Dialogs.customShowDialog(ctx, 'Oh wait', error.toString());
       }
-    } catch (error) {
-      //This dialog spins up when sign up is failed and shows the message
-      final value =
-          await Dialogs.customShowDialog(ctx, 'Oh wait', error.toString());
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<Auth>(context);
+    final authProvider = Provider.of<Auth>(context);
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
@@ -64,7 +62,7 @@ class _SignupPageState extends State<SignupPage> {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            icon: Icon(Icons.arrow_back_ios),
+            icon: const Icon(Icons.arrow_back_ios),
             color: Colors.black,
           ),
           backgroundColor: Colors.white,
@@ -170,25 +168,26 @@ class _SignupPageState extends State<SignupPage> {
                 ),
               ),
               GestureDetector(
-                  onTap: () => _submitSignupForm(userProvider.signup, context),
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: MediaQuery.of(context).size.height * 0.07,
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 20, horizontal: 15),
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 255, 182, 29),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    width: double.infinity,
-                    child: const Text(
-                      'Sign Up',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20),
-                    ),
-                  ))
+                onTap: () => _submitSignupForm(authProvider.signup, context),
+                child: Container(
+                  alignment: Alignment.center,
+                  height: MediaQuery.of(context).size.height * 0.07,
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 255, 182, 29),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  width: double.infinity,
+                  child: const Text(
+                    'Sign Up',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

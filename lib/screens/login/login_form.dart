@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kaspertechtask/common/dialogs.dart';
+import 'package:kaspertechtask/providers/auth.dart';
+import 'package:provider/provider.dart';
 
 import '../signup/signup_page.dart';
 
@@ -12,8 +15,17 @@ class _LoginFormState extends State<LoginForm> {
 
   String password = '';
 
+  void submitSignin(BuildContext ctx, signinCallback, email, password) async {
+    try {
+      await signinCallback(email, password);
+    } catch (error) {
+      await Dialogs.customShowDialog(ctx, 'Oops!', error.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<Auth>(context);
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
       child: SingleChildScrollView(
@@ -51,15 +63,14 @@ class _LoginFormState extends State<LoginForm> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Don\'t have an account?'),
+                  const Text('Don\'t have an account?'),
                   GestureDetector(
-                      child: Text(
+                      child: const Text(
                         '  Sign up',
                         style:
                             TextStyle(color: Color.fromARGB(255, 255, 182, 29)),
                       ),
                       onTap: () {
-                        print('Sign up page tapped');
                         Navigator.of(context).pushNamed(SignupPage.routeName);
                       }),
                 ],
@@ -69,9 +80,10 @@ class _LoginFormState extends State<LoginForm> {
                 child: Container(
                   alignment: Alignment.center,
                   height: MediaQuery.of(context).size.height * 0.07,
-                  margin: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 0, horizontal: 15),
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 255, 182, 29),
+                    color: const Color.fromARGB(255, 255, 182, 29),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   width: double.infinity,
@@ -83,10 +95,8 @@ class _LoginFormState extends State<LoginForm> {
                         fontSize: 20),
                   ),
                 ),
-                onTap: () {
-                  print(email);
-                  print(password);
-                })
+                onTap: () =>
+                    submitSignin(context, authProvider.login, email, password))
           ],
         ),
       ),

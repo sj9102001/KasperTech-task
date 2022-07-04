@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kaspertechtask/screens/login/login_page.dart';
+import 'package:kaspertechtask/screens/task/task_page.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:kaspertechtask/screens/Login/login_page.dart';
-import 'package:kaspertechtask/screens/home/home_page.dart';
+import 'package:kaspertechtask/screens/login/login_page.dart';
 import './screens/signup/signup_page.dart';
 import 'package:kaspertechtask/splash.dart';
 
@@ -30,7 +31,8 @@ class MyApp extends StatelessWidget {
         ),
         routes: {
           LoginPage.routeName: (ctx) => LoginPage(),
-          SignupPage.routeName: (ctx) => SignupPage()
+          SignupPage.routeName: (ctx) => SignupPage(),
+          TaskPage.routeName: (ctx) => TaskPage()
         },
         home: Splash(),
       ),
@@ -42,6 +44,7 @@ class MyHomePage extends StatelessWidget {
   bool isLoggedIn = false;
   @override
   Widget build(BuildContext context) {
-    return isLoggedIn ? HomePage() : LoginPage();
+    return Consumer<Auth>(
+        builder: (ctx, auth, _) => auth.isAuth ? TaskPage() : LoginPage());
   }
 }
