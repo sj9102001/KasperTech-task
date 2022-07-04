@@ -21,7 +21,7 @@ class Auth with ChangeNotifier {
   Future<void> signup(
       email, password, confirmPassword, name, phoneNumber, userName) async {
     var url = Uri.parse('https://app-dev-task.herokuapp.com/users/register');
-
+    print('on signup');
     //Splitting the full name entered to first name and last name
     final nameArray = name.split(' ');
     String firstName;

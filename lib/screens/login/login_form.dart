@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kaspertechtask/common/custom_button.dart';
 import 'package:kaspertechtask/common/dialogs.dart';
 import 'package:kaspertechtask/providers/auth.dart';
 import 'package:provider/provider.dart';
@@ -75,27 +76,19 @@ class _LoginFormState extends State<LoginForm> {
                 ],
               ),
             ),
-            GestureDetector(
-                child: Container(
-                  alignment: Alignment.center,
-                  height: MediaQuery.of(context).size.height * 0.07,
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 0, horizontal: 15),
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 255, 182, 29),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  width: double.infinity,
-                  child: const Text(
-                    'Sign In',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
-                  ),
-                ),
-                onTap: () =>
-                    submitSignin(context, authProvider.login, email, password))
+            CustomButton(
+              callbackFunction: () =>
+                  submitSignin(context, authProvider.login, email, password),
+              height: MediaQuery.of(context).size.height * 0.07,
+              width: double.infinity,
+              child: Text(
+                'Sign In',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
+              ),
+            )
           ],
         ),
       ),

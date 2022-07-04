@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kaspertechtask/common/custom_button.dart';
 import 'package:kaspertechtask/providers/auth.dart';
 import 'package:kaspertechtask/screens/login/login_page.dart';
 import 'package:provider/provider.dart';
@@ -24,6 +25,7 @@ class _SignupPageState extends State<SignupPage> {
   String confirmPassword = '';
 
   void _submitSignupForm(signupCallback, BuildContext ctx) async {
+    print('this runs');
     bool isValid = _formKey.currentState!.validate();
     if (isValid) {
       _formKey.currentState!.save();
@@ -168,25 +170,17 @@ class _SignupPageState extends State<SignupPage> {
                   ],
                 ),
               ),
-              GestureDetector(
-                onTap: () => _submitSignupForm(authProvider.signup, context),
-                child: Container(
-                  alignment: Alignment.center,
-                  height: MediaQuery.of(context).size.height * 0.07,
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 255, 182, 29),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  width: double.infinity,
-                  child: const Text(
-                    'Sign Up',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
-                  ),
+              CustomButton(
+                callbackFunction: () =>
+                    _submitSignupForm(authProvider.signup, context),
+                height: MediaQuery.of(context).size.height * 0.07,
+                width: double.infinity,
+                child: const Text(
+                  'Sign Up',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20),
                 ),
               ),
             ],
