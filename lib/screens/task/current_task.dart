@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:kaspertechtask/common/custom_button.dart';
-import 'package:kaspertechtask/common/display_text.dart';
-import 'package:kaspertechtask/models/order_delivery_data.dart';
-import 'package:kaspertechtask/providers/order_delivery_data_provider.dart';
-import 'package:kaspertechtask/screens/task/detail_widget.dart';
+import 'package:kaspertechtask/common/dialogs.dart';
+import 'package:kaspertechtask/providers/auth.dart';
 import 'package:provider/provider.dart';
+
+import '/common/custom_button.dart';
+import '/common/display_text.dart';
+
+import '/models/order_delivery_data.dart';
+
+import '/providers/order_delivery_data_provider.dart';
+
+import '/screens/task/detail_widget.dart';
+
+import '/services/send_notification.dart';
 
 class CurrentTask extends StatefulWidget {
   CurrentTask({
@@ -16,8 +24,18 @@ class CurrentTask extends StatefulWidget {
 }
 
 class _CurrentTaskState extends State<CurrentTask> {
+  Future<void> sendNotificationRequest(ctx, token, uid) async {
+    try {
+      final message = await sendNotification(token, uid);
+      Dialogs.customShowDialog(ctx, 'Notified', message);
+    } catch (e) {
+      Dialogs.customShowDialog(ctx, 'Error', e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<Auth>(context);
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
       margin: const EdgeInsets.fromLTRB(15, 20, 15, 0),
@@ -72,9 +90,8 @@ class _CurrentTaskState extends State<CurrentTask> {
                   ),
                   Expanded(
                     child: CustomButton(
-                        callbackFunction: () {
-                          print('status pressed');
-                        },
+                        callbackFunction: () => sendNotificationRequest(context,
+                            authProvider.token, authProvider.userDetail!.uid),
                         height: MediaQuery.of(context).size.height * 0.05,
                         width: MediaQuery.of(context).size.width * 0.25,
                         child: Text(
