@@ -4,6 +4,8 @@ import 'dart:convert';
 
 import '../models/user.dart';
 
+import '../services/update_notification_token.dart';
+
 class Auth with ChangeNotifier {
   String? token;
   User? userDetail;
@@ -20,7 +22,7 @@ class Auth with ChangeNotifier {
       email, password, confirmPassword, name, phoneNumber, userName) async {
     var url = Uri.parse('https://app-dev-task.herokuapp.com/users/register');
 
-    //Breaking the full name entered to first name and last name
+    //Splitting the full name entered to first name and last name
     final nameArray = name.split(' ');
     String firstName;
     String lastName;
@@ -54,7 +56,7 @@ class Auth with ChangeNotifier {
         throw (parsedResponse["msg"]);
       }
     } catch (error) {
-      throw ('An Error occured');
+      rethrow; //rethrow to show dialog in signnup page
     }
   }
 
@@ -74,7 +76,6 @@ class Auth with ChangeNotifier {
         throw (parsedResponse["msg"]);
       } else {
         token = parsedResponse["token"];
-        print(parsedResponse["user"]);
         userDetail = User(
             uid: parsedResponse["user"]["_id"],
             email: parsedResponse["user"]["email"],
@@ -83,9 +84,15 @@ class Auth with ChangeNotifier {
             phoneNumber: parsedResponse["user"]["phone_number"],
             username: parsedResponse["user"]["username"]);
       }
+      await updateNotificationToken(token, parsedResponse["user"]["_id"]);
       notifyListeners();
     } catch (error) {
-      throw (error);
+      //Token and UserDetail is set to null to roll back any change in auth state when
+      //An error is occured.
+      token = null;
+      userDetail = null;
+      notifyListeners(); //Calling notifylisteners() in case the auth state has changed.
+      rethrow; //rethrow to show dialog in login page
     }
   }
 

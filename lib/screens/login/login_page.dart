@@ -3,6 +3,8 @@ import 'package:kaspertechtask/screens/Login/login_form.dart';
 import 'package:kaspertechtask/screens/Login/login_welcome_text.dart';
 import 'package:kaspertechtask/screens/Login/logo_widget.dart';
 
+final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
 class LoginPage extends StatelessWidget {
   static const routeName = '/login';
   const LoginPage({Key? key}) : super(key: key);
@@ -10,6 +12,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
           leading: const Icon(
             Icons.arrow_back_ios,
