@@ -76,6 +76,7 @@ class Auth with ChangeNotifier {
         token = parsedResponse["token"];
         print(parsedResponse["user"]);
         userDetail = User(
+            uid: parsedResponse["user"]["_id"],
             email: parsedResponse["user"]["email"],
             firstName: parsedResponse["user"]["first_name"],
             lastName: parsedResponse["user"]["last_name"],
