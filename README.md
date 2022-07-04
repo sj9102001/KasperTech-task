@@ -1,16 +1,3 @@
 # kaspertechtask
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![splash-screen-screenshot](https://user-images.githubusercontent.com/80746702/177142006-dbe20791-0592-4195-9bb9-55b7ce76c17b.png)![Screenshot_1656932723](https://user-images.githubusercontent.com/80746702/177142443-0e881a31-d21b-4629-bf28-14cd113507ea.png)![error-handling-screenshot](https://user-images.githubusercontent.com/80746702/177142634-696cc9e0-8271-4b45-9759-5fcd989607b9.png)
