@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+
 import 'package:kaspertechtask/screens/task/upcoming_task.dart';
 
 import './../../common/drawer.dart';
@@ -6,7 +8,6 @@ import './../../common/display_text.dart';
 
 import '/screens/task/current_task.dart';
 
-// ignore: use_key_in_widget_constructors, must_be_immutable
 class TaskPage extends StatelessWidget {
   var scaffoldKey = GlobalKey<ScaffoldState>();
   static const routeName = '/taskpage';
@@ -25,12 +26,14 @@ class TaskPage extends StatelessWidget {
           ),
           backgroundColor: Colors.white,
           elevation: 0),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CurrentTask(),
-          UpcomingTask(),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CurrentTask(),
+            UpcomingTask(),
+          ],
+        ),
       ),
     );
   }

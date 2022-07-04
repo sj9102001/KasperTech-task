@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import 'package:kaspertechtask/providers/order_delivery_data_provider.dart';
 import 'package:kaspertechtask/screens/login/login_page.dart';
 import 'package:kaspertechtask/screens/task/task_page.dart';
 
@@ -21,6 +23,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (ctx) => Auth()),
+        ChangeNotifierProvider(create: (ctx) => OrderDeliveryDataProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
