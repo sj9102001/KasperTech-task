@@ -1,3 +1,3 @@
 # KasperTech-task
 
-<img src="https://github.com/sj9102001/KasperTech-task/blob/master/screenshot/error-handling-screenshot.png" height="400" width="200">
+<img src="https://github.com/sj9102001/KasperTech-task/blob/master/screenshot/error-handling-screenshot.png" height="450" width="300">
