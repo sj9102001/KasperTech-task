@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:kaspertechtask/providers/auth.dart';
+import 'package:kaspertechtask/screens/login/login_page.dart';
+import 'package:provider/provider.dart';
+
+import 'package:kaspertechtask/common/dialogs.dart';
 
 class SignupPage extends StatefulWidget {
   static const routeName = '/signup';
@@ -17,23 +22,36 @@ class _SignupPageState extends State<SignupPage> {
   String password = '';
   String confirmPassword = '';
 
-  void _submitSignupForm() {
+  void _submitSignupForm(signupCallback, BuildContext ctx) async {
     bool isValid = _formKey.currentState!.validate();
     print(isValid);
     if (isValid) {
       _formKey.currentState!.save();
+    }
 
-      print(name);
-      print(userName);
-      print(email);
-      print(phoneNumber);
-      print(password);
-      print(confirmPassword);
+    //Sign up call
+    try {
+      await signupCallback(
+          email, password, confirmPassword, name, phoneNumber, userName);
+
+      //This dialog spins up when sign up is succesfull and then procedes to login page
+      // ignore: use_build_context_synchronously
+      final value = await Dialogs.customShowDialog(
+          ctx, 'Welcome!', 'Sign up succesful, Procced to sign in?');
+      if (value == DialogAction.yes) {
+        // ignore: use_build_context_synchronously
+        Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
+      }
+    } catch (error) {
+      //This dialog spins up when sign up is failed and shows the message
+      final value =
+          await Dialogs.customShowDialog(ctx, 'Oh wait', error.toString());
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<Auth>(context);
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
@@ -72,6 +90,7 @@ class _SignupPageState extends State<SignupPage> {
                             if (value.toString().isEmpty) {
                               return 'Name is required';
                             }
+                            return null;
                           }),
                     ),
                     Padding(
@@ -85,6 +104,7 @@ class _SignupPageState extends State<SignupPage> {
                             if (value.toString().isEmpty) {
                               return 'Username is required';
                             }
+                            return null;
                           }),
                     ),
                     Padding(
@@ -98,6 +118,7 @@ class _SignupPageState extends State<SignupPage> {
                           if (value.toString().isEmpty) {
                             return 'Email is required';
                           }
+                          return null;
                         },
                       ),
                     ),
@@ -113,6 +134,7 @@ class _SignupPageState extends State<SignupPage> {
                             if (value.toString().isEmpty) {
                               return 'Phone number is required';
                             }
+                            return null;
                           }),
                     ),
                     Padding(
@@ -141,13 +163,14 @@ class _SignupPageState extends State<SignupPage> {
                             if (value.toString().isEmpty) {
                               return 'Confirm password!';
                             }
+                            return null;
                           }),
                     ),
                   ],
                 ),
               ),
               GestureDetector(
-                  onTap: _submitSignupForm,
+                  onTap: () => _submitSignupForm(userProvider.signup, context),
                   child: Container(
                     alignment: Alignment.center,
                     height: MediaQuery.of(context).size.height * 0.07,
@@ -178,19 +201,19 @@ InputDecoration _buildInputDecoration(text) {
   return InputDecoration(
       hintText: text,
       labelText: text,
-      labelStyle: TextStyle(color: Colors.black54),
-      focusedBorder: OutlineInputBorder(
+      labelStyle: const TextStyle(color: Colors.black54),
+      focusedBorder: const OutlineInputBorder(
         borderSide: BorderSide(color: Colors.black54, width: 2),
       ),
-      enabledBorder: OutlineInputBorder(
+      enabledBorder: const OutlineInputBorder(
         borderSide: BorderSide(color: Colors.grey, width: 2),
       ),
-      errorBorder: OutlineInputBorder(
+      errorBorder: const OutlineInputBorder(
         borderSide: BorderSide(color: Colors.red, width: 2),
       ),
-      focusedErrorBorder: OutlineInputBorder(
+      focusedErrorBorder: const OutlineInputBorder(
         borderSide: BorderSide(color: Colors.red, width: 2),
       ),
-      contentPadding: EdgeInsets.all(20),
+      contentPadding: const EdgeInsets.all(20),
       border: InputBorder.none);
 }
