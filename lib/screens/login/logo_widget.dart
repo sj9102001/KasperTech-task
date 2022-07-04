@@ -12,7 +12,6 @@ class LogoWidget extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 10),
       alignment: Alignment.topCenter,
       width: double.infinity,
-      color: Colors.white,
       child: Image.asset('assets/login.png'),
     );
   }

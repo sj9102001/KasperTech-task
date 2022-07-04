@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-
-import 'package:kaspertechtask/providers/order_delivery_data_provider.dart';
-import 'package:kaspertechtask/screens/login/login_page.dart';
-import 'package:kaspertechtask/screens/task/task_page.dart';
-
 import 'package:provider/provider.dart';
 
+import '/screens/login/login_page.dart';
+import '/screens/task/task_page.dart';
+
 import './screens/signup/signup_page.dart';
-import 'package:kaspertechtask/splash.dart';
+import '/splash.dart';
 
 import 'providers/auth.dart';
+import '/providers/order_delivery_data_provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -42,8 +41,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Consumer<Auth>(
